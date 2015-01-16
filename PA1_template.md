@@ -23,10 +23,9 @@ activityData$date <- as.Date(activityData$date)
 
 ## What is mean total number of steps taken per day? 
 
-Next, we would like to get a basic idea of daily activity by looking at the number of steps taken each day. We can do this by:
+Next, we would like to get a basic idea of daily activity by looking at the number of steps taken each day. We can do this by:  
 
-1. Making a histogram of the total number of steps taken each day, using the code below:  
-
+* Making a histogram of the total number of steps taken each day, using the code below:
 
 ```r
 TotalStepsPerDay <- tapply(activityData$steps, activityData$date, sum, na.rm=TRUE)
@@ -38,7 +37,7 @@ hist(TotalStepsPerDay,
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
-2. Calculating the **mean** and **median** total number of steps taken per day, using the code below:  
+* Calculating the **mean** and **median** total number of steps taken per day, using the code below:  
 
 
 ```r
@@ -61,7 +60,7 @@ median(TotalStepsPerDay, na.rm = TRUE)
 
 Next, we can examine the average daily activity pattern by:  
 
-1. Making a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis), using the code below:
+* Making a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis), using the code below:  
 
 
 ```r
@@ -75,7 +74,7 @@ plot(MeanStepsPerInterval$interval,
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
-2. Identifying the 5-minute interval, on average across all the days in the dataset, that contains the maximum number of steps:
+* Identifying the 5-minute interval, on average across all the days in the dataset, that contains the maximum number of steps:  
 
 
 ```r
@@ -117,7 +116,7 @@ any(is.na(activityData$interval))
 
 We've shown that only the **steps** variable contains missing values. To take these into account, we can substitute the missing values with the average steps value across all days for the corresponding interval. Assuming that the person follows the same routine each day (same activities at approximately the same time), this should give us a more accurate representation of the person's activity during the given time range. We can accomplish this by taking the following steps:  
 
-1. Calculating the total number of missing values in the dataset (i.e. the total number of rows with NAs). We now know that only the **steps** variable has missing values, so we can count those as:  
+* Calculating the total number of missing values in the dataset (i.e. the total number of rows with NAs). We now know that only the **steps** variable has missing values, so we can count those as:
 
 
 ```r
@@ -128,9 +127,9 @@ sum(is.na(activityData$steps))
 ## [1] 2304
 ```
 
-2. Filling in all of the missing steps values in the dataset using the mean for that 5-minute interval, and then continuing to  
+* Filling in all of the missing steps values in the dataset using the mean for that 5-minute interval, and then continuing to
 
-3. Create a new dataset that is equal to the original dataset but with the missing data filled in. We can create a new data set called *imputeActivity* that contains the average number of steps for each interval  on each day (calculated previously), and sort that data set by date to match the original data set:  
+* Create a new dataset that is equal to the original dataset but with the missing data filled in. We can create a new data set called *imputeActivity* that contains the average number of steps for each interval  on each day (calculated previously), and sort that data set by date to match the original data set:  
 
 
 ```r
@@ -145,7 +144,7 @@ Next, we will use the non-NA steps values from the original data set to replace 
 imputeActivity$steps[!is.na(activityData$steps)] <- activityData$steps[!is.na(activityData$steps)]
 ```
 
-4. Lastly, we can again make a histogram of the total number of steps taken each day and calculate the mean and median total number of steps taken per day:  
+* Lastly, we can again make a histogram of the total number of steps taken each day and calculate the mean and median total number of steps taken per day:  
 
 
 ```r
@@ -180,7 +179,7 @@ We can see that these values differ from the estimates from the first part of th
 
 Finally, let's compare activity patterns on weekdays vs. weekends. We can do this in two steps:  
 
-1. Let's create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day. We will add a new column named *week* to the data set containing the day of the week based on the date. Then, we will replace all days that are not Saturday nor Sunday with the label *weekday*, and all all days that are Saturday or Sunday with the label *weekend*:  
+* Let's create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day. We will add a new column named *week* to the data set containing the day of the week based on the date. Then, we will replace all days that are not Saturday nor Sunday with the label *weekday*, and all all days that are Saturday or Sunday with the label *weekend*:  
 
 
 ```r
@@ -190,7 +189,7 @@ imputeActivity$week[which(imputeActivity$week != "Sat" & imputeActivity$week != 
 imputeActivity$week[which(imputeActivity$week == "Sat" | imputeActivity$week == "Sun")] <- "weekend"
 ```
 
-2. We can make a panel plot containing a time series of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). First, we need to calulate the average number of steps per interval, and then we can construct the panel plot using the *week* labels we created in step 1:
+* We can make a panel plot containing a time series of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). First, we need to calulate the average number of steps per interval, and then we can construct the panel plot using the *week* labels we created in step 1:
 
 
 ```r
